@@ -65,6 +65,8 @@ mod tests {
 
     #[test]
     fn test_generate() {
+        use std::time::Instant;
+        let now = Instant::now();
         let secret = [11u8; 32];
         let degree = 16;
 
@@ -73,5 +75,8 @@ mod tests {
         // NOTE: had an earlier bug w/ non-deterministic setups...
         assert_eq!(setup, second_setup);
         assert_eq!(setup.in_g1.len(), degree + 1);
+        let elapsed = now.elapsed().as_nanos();
+        
+        println!("test_generate took: {}ns", elapsed);
     }
 }
