@@ -110,6 +110,7 @@ mod tests {
     fn test_opening() {
         use std::time::Instant;
         let now = Instant::now();
+        for _i in 1..100{
         // computed from python reference: https://github.com/ethereum/research/blob/master/kzg_data_availability/kzg_proofs.py
         let test_cases = vec![
             (
@@ -276,15 +277,17 @@ mod tests {
             // does the proof verify?
             assert!(opening.verify(&point, &commitment));
         }
+    }
         let elapsed = now.elapsed().as_nanos();
         
-        println!("test_opening took: {}ns", elapsed);
+        println!("test_opening took: {}ns", elapsed/100);
     }
 
     #[test]
     fn test_verify_opening_identity_polynomial() {
         use std::time::Instant;
         let now = Instant::now();
+        for _i in 1..100{
         let secret = [11u8; 32];
         let degree = 1;
         let setup = setup::generate(&secret, degree);
@@ -312,8 +315,9 @@ mod tests {
         };
 
         assert!(opening.verify(&point, &commitment));
+    }
         let elapsed = now.elapsed().as_nanos();
         
-        println!("test_verify_opening_identity_polynomial took: {}ns", elapsed);
+        println!("test_verify_opening_identity_polynomial took: {}ns", elapsed/100);
     }
 }
